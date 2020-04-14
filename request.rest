@@ -6,13 +6,12 @@ GET http://localhost:3000/animals/Katt
 
 ###
 
-POST http://localhost:3000/animals
+POST http://localhost:3000/animals/
 Content-Type: application/json
 
-{
-    "id": "5",
-    "species": "",
-    "years": "",
-    "info": ""
-
-}
+# {
+#     "id": 5,
+#     "species": "Häst",
+#     "years": 25,
+#     "info": "Häst rimmar på präst"
+# }

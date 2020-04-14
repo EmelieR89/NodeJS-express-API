@@ -35,3 +35,33 @@ printSpecificAnimal = (animal) => {
   let info = document.getElementById("info");
   info.innerHTML = animal.info != undefined ? animal.info : "";
 };
+
+addAnimal = () => {
+  let addedAnimalSpecies = document.getElementById("addSpecies");
+  let addedAnimalYears = document.getElementById("addYears");
+  let addedAnimalInfo = document.getElementById("addInfo");
+  let newAnimal = {
+    id: 12,
+    species: addedAnimalSpecies.value,
+    years: addedAnimalYears.value,
+    info: addedAnimalInfo.value,
+  };
+
+  fetch("http://localhost:3000/animals/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newAnimal),
+  })
+    .then((response) => {
+      if (response.status === 201) {
+        addedAnimalSpecies.value = "";
+        addedAnimalYears.value = "";
+        addedAnimalInfo.value = "";
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
