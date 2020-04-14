@@ -6,6 +6,7 @@ fetch("http://localhost:3000/animals")
     console.log(animals);
   });
 
+//GET
 searchForAnimals = () => {
   const species = document.getElementById("specificAnimal").value;
   console.log(species);
@@ -36,6 +37,7 @@ printSpecificAnimal = (animal) => {
   info.innerHTML = animal.info != undefined ? animal.info : "";
 };
 
+//POST
 addAnimal = () => {
   let addedAnimalSpecies = document.getElementById("addSpecies");
   let addedAnimalYears = document.getElementById("addYears");
@@ -62,6 +64,32 @@ addAnimal = () => {
       }
     })
     .catch((error) => {
-      console.log(error);
+      console.error("There is an issue, ", error);
+    });
+};
+
+//PUT
+
+updateAnimal = () => {};
+
+//DELETE
+deleteSelectedSpecies = () => {
+  let deletedAnimal = document.getElementById("deleteSpecies").value;
+
+  fetch("http://localhost:3000/animals/" + deletedAnimal, {
+    method: "DELETE",
+    // body: deletedAnimal,
+  })
+    .then((response) => {
+      if ((response.status = 201)) {
+        document.getElementById("deleteSpecies").value = "";
+        let deleteSuccess = document.createElement("h3");
+        deleteSuccess.innerHTML = deletedAnimal + " är nu borttaget.";
+        let couldDeleteDiv = document.getElementById("couldDeleteDiv");
+        couldDeleteDiv.appendChild(deleteSuccess);
+      }
+    })
+    .catch((error) => {
+      console.error("There is an issue: ", error);
     });
 };

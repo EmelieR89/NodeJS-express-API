@@ -47,4 +47,42 @@ app.post("/animals", (req, res) => {
   res.status(201).send();
 });
 
+app.put("/animals/:species", (req, res) => {
+  const animalFound = animals.find((animal) => {
+    if (animal.species === req.params.species) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  if (!animalFound) {
+    res.status(404).send();
+  } else {
+    res.send(animalFound);
+  }
+  animalFound.species = res.body.species;
+  animalFound.years = res.body.years;
+  animalFound.info = res.body.info;
+  res.send(animalFound);
+});
+
+app.delete("/animals/:species", (req, res) => {
+  const animalFound = animals.find((animal) => {
+    if (animal.species === req.params.species) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  if (!animalFound) {
+    res.status(404).send();
+  } else {
+    const index = animals.indexOf(animalFound);
+    animals.splice(index, 1);
+    res.send(animalFound);
+  }
+});
+
 app.listen(port, () => console.log(`Listening to http://localhost:${port}`));
