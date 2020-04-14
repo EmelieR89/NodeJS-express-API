@@ -5,30 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Animals</title>
     <script defer src="logic.js"></script>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Raleway&display=swap"
+      rel="stylesheet"
+    />
   </head>
+  <header>
+    <h1>Djuren på gården</h1>
+  </header>
   <body>
-    <h2>Hejsan Svejsan</h2>
-    <input id="specificAnimal" type="text" />
-    <button onclick="searchForAnimals()">Sök djur</button>
-    <div id="animalInfoText">
-      <h3 id="species"></h3>
-      <p id="years"></p>
-      <p id="info"></p>
-    </div>
+    <main>
+      <div id="mainDiv">
+        <div id="searchDiv">
+          <h3>Vilket djur vill du lära dig mer om?</h3>
+          <input id="specificAnimal" type="text" />
+          <br />
+          <button onclick="searchForAnimals()">Sök djur</button>
+          <div id="animalInfoText">
+            <h4 id="species"></h4>
+            <p id="years"></p>
+            <p id="info"></p>
+          </div>
+        </div>
 
-    <input id="addSpecies" type="text" placeholder="Lägg till art..." />
-    <br />
-    <input id="addYears" type="number" />
-    <br />
-    <input id="addInfo" type="text" placeholder="Lägg till info..." />
-    <button onclick="addAnimal()">Lägg till djur</button>
-    <div id="addedAnimal"></div>
+        <div id="addAnimalDiv">
+          <h3>Lägg till djur</h3>
+          <input id="addSpecies" type="text" placeholder="Lägg till art..." />
+          <br />
+          <input id="addYears" type="number" />
+          <br />
+          <textarea
+            id="addInfo"
+            type="text"
+            rows="20"
+            cols="40"
+            placeholder="Lägg till info..."
+          ></textarea>
+          <br />
+          <button onclick="addAnimal()">Lägg till djur</button>
+          <div id="addedAnimal"></div>
+        </div>
 
-    <h3>Vilket djur vill du ta bort?</h3>
-    <input id="deleteSpecies" type="text" />
-    <button onclick="deleteSelectedSpecies()">Delete</button>
-    <div id="couldDeleteDiv"></div>
+        <div id="removeAnimalDiv">
+          <h3>Vilket djur vill du ta bort?</h3>
+          <input id="deleteSpecies" type="text" />
+          <br />
+          <button onclick="deleteSelectedSpecies()">Delete</button>
+          <div id="couldDeleteDiv"></div>
 
-    <div id="couldNotDeleteDiv"></div>
+          <div id="couldNotDeleteDiv"></div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
