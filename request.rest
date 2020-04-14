@@ -1,0 +1,18 @@
+GET http://localhost:3000/animals
+
+###
+
+GET http://localhost:3000/animals/Katt
+
+###
+
+POST http://localhost:3000/animals
+Content-Type: application/json
+
+{
+    "id": "5",
+    "species": "",
+    "years": "",
+    "info": ""
+
+}
