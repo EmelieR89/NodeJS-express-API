@@ -21,12 +21,33 @@
           <h3>Vilket djur vill du lära dig mer om?</h3>
           <input id="specificAnimal" type="text" />
           <br />
-          <button onclick="searchForAnimals()">Sök djur</button>
+          <button onclick="searchForAnimal()">Sök djur</button>
           <div id="animalInfoText">
             <h4 id="species"></h4>
             <p id="years"></p>
             <p id="info"></p>
           </div>
+        </div>
+
+        <div id="updateAnimal">
+          <select
+            name="Animals"
+            id="animalsList"
+            onchange="animalOptionChange()"
+          >
+          </select>
+          <br />
+          <input type="text" id="speciesChange" />
+          <br />
+          <input type="number" id="yearsChange" />
+          <br />
+          <textarea
+            name="Animal"
+            id="infoChange"
+            cols="30"
+            rows="10"
+          ></textarea>
+          <button onclick="updateAnimal()">Spara</button>
         </div>
 
         <div id="addAnimalDiv">

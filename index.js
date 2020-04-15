@@ -48,6 +48,7 @@ app.post("/animals", (req, res) => {
 });
 
 app.put("/animals/:species", (req, res) => {
+  console.log("PUT API");
   const animalFound = animals.find((animal) => {
     if (animal.species === req.params.species) {
       return true;
@@ -59,12 +60,11 @@ app.put("/animals/:species", (req, res) => {
   if (!animalFound) {
     res.status(404).send();
   } else {
+    animalFound.species = req.body.species;
+    animalFound.years = req.body.years;
+    animalFound.info = req.body.info;
     res.send(animalFound);
   }
-  animalFound.species = res.body.species;
-  animalFound.years = res.body.years;
-  animalFound.info = res.body.info;
-  res.send(animalFound);
 });
 
 app.delete("/animals/:species", (req, res) => {
