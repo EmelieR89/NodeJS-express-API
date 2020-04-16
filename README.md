@@ -53,6 +53,7 @@ Starta sedan servern:
 node index.js
 ```
 
+Tryck sedan på länken som kommer upp i din terminal. Sidan öppnas då i din webbläsare.
 
 ### Länk till repo
 https://github.com/EmelieR89/NodeJS-express-API
