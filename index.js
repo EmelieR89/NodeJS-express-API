@@ -1,40 +1,18 @@
 const express = require("express");
 const app = express();
+const handler = require("./handler");
 const port = 3000;
-
-const animals = [
-  { id: 1, species: "Marsvin", years: 5, info: "Marvsin kommer från Peru" },
-  {
-    id: 2,
-    species: "Katt",
-    years: 20,
-    info: "Katter landar oftast på fötterna",
-  },
-  {
-    id: 3,
-    species: "Gris",
-    years: 15,
-    info: "Minigrisar kan väga upp mot 100 kg",
-  },
-  { id: 4, species: "Får", years: 15, info: "Fårets ungar heter lamm" },
-];
 
 app.use(express.json());
 app.use(express.static("public"));
 
 app.get("/animals", (req, res) => {
-  res.send(animals);
+  res.send(handler.getWholeObject());
 });
 
 app.get("/animals/:species", (req, res) => {
-  console.log("Från djur id: " + req.params.species);
-  const animalFound = animals.find((animal) => {
-    if (animal.species === req.params.species) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  let animalFound = handler.getBySpecies(req.params.species);
+  console.log(animalFound + " från appget");
   if (!animalFound) {
     res.status(404).send();
   } else {
@@ -43,44 +21,27 @@ app.get("/animals/:species", (req, res) => {
 });
 
 app.post("/animals", (req, res) => {
-  animals.push(req.body);
+  handler.addAnimal(req.body);
   res.status(201).send();
 });
 
 app.put("/animals/:species", (req, res) => {
   console.log("PUT API");
-  const animalFound = animals.find((animal) => {
-    if (animal.species === req.params.species) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  const animalFound = handler.updateAnimal(req.body);
 
   if (!animalFound) {
     res.status(404).send();
   } else {
-    animalFound.species = req.body.species;
-    animalFound.years = req.body.years;
-    animalFound.info = req.body.info;
     res.send(animalFound);
   }
 });
 
 app.delete("/animals/:species", (req, res) => {
-  const animalFound = animals.find((animal) => {
-    if (animal.species === req.params.species) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  const animalFound = handler.deleteAnimal(req.params.species);
 
   if (!animalFound) {
     res.status(404).send();
   } else {
-    const index = animals.indexOf(animalFound);
-    animals.splice(index, 1);
     res.send(animalFound);
   }
 });
