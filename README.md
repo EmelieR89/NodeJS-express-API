@@ -38,3 +38,5 @@ Ytterligare en GET endpoint skall läggas till där det går att hämta ett spec
 ### Hur du kör projektet
 
 
+#### Länk till repo
+https://github.com/EmelieR89/NodeJS-express-API
