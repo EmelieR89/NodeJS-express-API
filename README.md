@@ -37,6 +37,12 @@ Ytterligare en GET endpoint skall läggas till där det går att hämta ett spec
 
 ### Hur du kör projektet
 
+Kör först en npm install i din terminal: 
+´npm install´
+
+Installera sedan express: 
+´npm install express´
+
 
 ### Länk till repo
 https://github.com/EmelieR89/NodeJS-express-API
