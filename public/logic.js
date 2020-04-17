@@ -55,18 +55,19 @@ getAnimalBySpecies = async (species) => {
 // When user searches for specific animal
 searchForAnimal = async () => {
   const species = document.getElementById("specificAnimal");
+  let errorResponse = document.getElementById("errorResponse");
 
   const foundAnimal = await getAnimalBySpecies(species.value);
 
   if (foundAnimal === 404) {
     printSpecificAnimal("");
-    let infoDiv = document.getElementById("animalInfoText");
-    let errorResponse = document.createElement("h4");
+    species.value = "";
+
     errorResponse.innerHTML = "Kunde inte hitta det djur du söker.";
-    infoDiv.appendChild(errorResponse);
   } else {
     printSpecificAnimal(foundAnimal);
     species.value = "";
+    errorResponse.innerHTML = "";
   }
 };
 
