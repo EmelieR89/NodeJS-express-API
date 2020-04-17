@@ -46,8 +46,17 @@ div {
 }
 
 input,
+select,
 textarea,
 button,
 h3 {
   margin: 0.5rem;
+}
+
+#searchDiv,
+#updateAnimal,
+#addAnimalDiv,
+#removeAnimalDiv {
+  border-bottom: 1px solid black;
+  margin-bottom: 2rem;
 }

@@ -2,9 +2,9 @@ window.onload = (event) => {
   populationOfAnimalList();
 };
 
+//Population of the dropdownlist
 populationOfAnimalList = async () => {
   const animals = await getAllAnimals();
-  console.log(animals);
   let optionlistAnimals = document.getElementById("animalsList");
 
   optionlistAnimals.innerHTML = "";
@@ -14,17 +14,16 @@ populationOfAnimalList = async () => {
   });
 };
 
+//Runs when user changes animal in dropdown
 animalOptionChange = async () => {
   let optionlistAnimals = document.getElementById("animalsList");
   let selectedAnimal = optionlistAnimals.value;
 
   const animal = await getAnimalBySpecies(selectedAnimal);
 
-  speciesChange = document.getElementById("speciesChange");
   yearsChange = document.getElementById("yearsChange");
   infoChange = document.getElementById("infoChange");
 
-  speciesChange.value = animal.species;
   yearsChange.value = animal.years;
   infoChange.value = animal.info;
 };
@@ -55,18 +54,19 @@ getAnimalBySpecies = async (species) => {
 
 // When user searches for specific animal
 searchForAnimal = async () => {
-  const species = document.getElementById("specificAnimal").value;
+  const species = document.getElementById("specificAnimal");
 
-  const foundAnimal = await getAnimalBySpecies(species);
+  const foundAnimal = await getAnimalBySpecies(species.value);
 
   if (foundAnimal === 404) {
     printSpecificAnimal("");
     let infoDiv = document.getElementById("animalInfoText");
-    let errorResponse = document.createElement("h3");
+    let errorResponse = document.createElement("h4");
     errorResponse.innerHTML = "Kunde inte hitta det djur du söker.";
     infoDiv.appendChild(errorResponse);
   } else {
     printSpecificAnimal(foundAnimal);
+    species.value = "";
   }
 };
 
@@ -79,13 +79,14 @@ printSpecificAnimal = (animal) => {
   info.innerHTML = animal.info != undefined ? animal.info : "";
 };
 
-//POST
+//POST add new animal
+
 addAnimal = () => {
   let addedAnimalSpecies = document.getElementById("addSpecies");
   let addedAnimalYears = document.getElementById("addYears");
   let addedAnimalInfo = document.getElementById("addInfo");
   let newAnimal = {
-    id: 12,
+    id: NaN,
     species: addedAnimalSpecies.value,
     years: addedAnimalYears.value,
     info: addedAnimalInfo.value,
@@ -112,9 +113,9 @@ addAnimal = () => {
   populationOfAnimalList();
 };
 
-//PUT
+//PUT update animal
 updateAnimal = () => {
-  speciesChange = document.getElementById("speciesChange");
+  speciesChange = document.getElementById("animalsList");
   yearsChange = document.getElementById("yearsChange");
   infoChange = document.getElementById("infoChange");
 
@@ -130,18 +131,23 @@ updateAnimal = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(updatedAnimal),
-  }).then((response) => {
-    console.log(response.status + " från updatePUT");
-  });
+  })
+    .then((response) => {
+      console.log(response.status);
+      yearsChange.value = "";
+      infoChange.value = "";
+    })
+    .catch((error) => {
+      console.error("There is an issue " + error);
+    });
 };
 
-//DELETE
+//DELETE animal
 deleteSelectedSpecies = () => {
   let deletedAnimal = document.getElementById("deleteSpecies").value;
 
   fetch("http://localhost:3000/animals/" + deletedAnimal, {
     method: "DELETE",
-    // body: deletedAnimal,
   })
     .then((response) => {
       if ((response.status = 201)) {

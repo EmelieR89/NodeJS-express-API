@@ -3,7 +3,9 @@ const app = express();
 const handler = require("./handler");
 const port = 3000;
 
+//Parse request body as JSON
 app.use(express.json());
+
 app.use(express.static("public"));
 
 app.get("/animals", (req, res) => {
@@ -12,7 +14,6 @@ app.get("/animals", (req, res) => {
 
 app.get("/animals/:species", (req, res) => {
   let animalFound = handler.getBySpecies(req.params.species);
-  console.log(animalFound + " från appget");
   if (!animalFound) {
     res.status(404).send();
   } else {
@@ -26,7 +27,6 @@ app.post("/animals", (req, res) => {
 });
 
 app.put("/animals/:species", (req, res) => {
-  console.log("PUT API");
   const animalFound = handler.updateAnimal(req.body);
 
   if (!animalFound) {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Animals</title>
+    <title>Djuren på gården</title>
     <script defer src="logic.js"></script>
     <link rel="stylesheet" href="index.css" />
     <link
@@ -23,13 +23,17 @@
           <br />
           <button onclick="searchForAnimal()">Sök djur</button>
           <div id="animalInfoText">
-            <h4 id="species"></h4>
+            <h4>Art:</h4>
+            <p id="species"></p>
+            <h4>Hur gamla de blir:</h4>
             <p id="years"></p>
+            <h4>Visste du att?</h4>
             <p id="info"></p>
           </div>
         </div>
 
         <div id="updateAnimal">
+          <h3>Vilket djur vill du uppdatera?</h3>
           <select
             name="Animals"
             id="animalsList"
@@ -37,15 +41,18 @@
           >
           </select>
           <br />
-          <input type="text" id="speciesChange" />
-          <br />
-          <input type="number" id="yearsChange" />
+          <input
+            type="number"
+            id="yearsChange"
+            placeholder="Hur gamla blir de..."
+          />
           <br />
           <textarea
             name="Animal"
             id="infoChange"
             cols="30"
             rows="10"
+            placeholder="Uppdatera info..."
           ></textarea>
           <button onclick="updateAnimal()">Spara</button>
         </div>
@@ -54,7 +61,11 @@
           <h3>Lägg till djur</h3>
           <input id="addSpecies" type="text" placeholder="Lägg till art..." />
           <br />
-          <input id="addYears" type="number" />
+          <input
+            id="addYears"
+            type="number"
+            placeholder="Hur gamla blir de..."
+          />
           <br />
           <textarea
             id="addInfo"
@@ -72,7 +83,7 @@
           <h3>Vilket djur vill du ta bort?</h3>
           <input id="deleteSpecies" type="text" />
           <br />
-          <button onclick="deleteSelectedSpecies()">Delete</button>
+          <button onclick="deleteSelectedSpecies()">Ta bort</button>
           <div id="couldDeleteDiv"></div>
 
           <div id="couldNotDeleteDiv"></div>

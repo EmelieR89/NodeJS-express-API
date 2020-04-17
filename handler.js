@@ -1,7 +1,7 @@
 const fs = require("fs");
 const rawObject = fs.readFileSync("./data.json");
 const animals = JSON.parse(rawObject);
-
+let idIndex = animals.length;
 writeToFile = () => {
   fs.writeFileSync("./data.json", JSON.stringify(animals), (error) =>
     console.log(error)
@@ -30,6 +30,7 @@ module.exports = {
   },
 
   addAnimal: (newAnimal) => {
+    newAnimal.id = ++idIndex;
     animals.push(newAnimal);
     writeToFile();
   },
