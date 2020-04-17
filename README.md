@@ -45,11 +45,6 @@ Kör först en npm install i din terminal:
 npm install
 ```
 
-Installera sedan express: 
-```bash
-npm install express
-```
-
 Starta sedan servern:
 
 ```bash
