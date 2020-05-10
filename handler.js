@@ -11,7 +11,6 @@ writeToFile = () => {
 findAnimal = (speciesToFind) => {
   return animals.find((animal) => {
     if (animal.species === speciesToFind) {
-      console.log(animal.species + " från find");
       return animal;
     } else {
       return false;
@@ -36,11 +35,11 @@ module.exports = {
   },
 
   updateAnimal: (updatedAnimal) => {
-    let result = findAnimal(updatedAnimal.species);
+    let result = findAnimal(updatedAnimal.previousSpecies);
     if (!result) {
       return result;
     } else {
-      result.species = updatedAnimal.species;
+      result.species = updatedAnimal.newSpecies;
       result.years = updatedAnimal.years;
       result.info = updatedAnimal.info;
 

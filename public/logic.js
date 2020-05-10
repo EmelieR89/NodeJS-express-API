@@ -37,6 +37,22 @@ getAllAnimals = async () => {
   return result;
 };
 
+//Check if animal already exists
+checkIfExists = async (elementValue) => {
+  const animalList = await getAllAnimals();
+  let doesItExist = false;
+
+  animalList.map((x) => {
+    if (x.species === elementValue) {
+      doesItExist = true;
+    }
+  });
+  if (doesItExist) {
+    alert("Species already exist");
+  }
+  return doesItExist;
+};
+
 //GET specific by species
 getAnimalBySpecies = async (species) => {
   let result;
@@ -82,7 +98,7 @@ printSpecificAnimal = (animal) => {
 
 //POST add new animal
 
-addAnimal = () => {
+addAnimal = async () => {
   let addedAnimalSpecies = document.getElementById("addSpecies");
   let addedAnimalYears = document.getElementById("addYears");
   let addedAnimalInfo = document.getElementById("addInfo");
@@ -92,6 +108,11 @@ addAnimal = () => {
     years: addedAnimalYears.value,
     info: addedAnimalInfo.value,
   };
+
+  const doesAnimalExist = await checkIfExists(addedAnimalSpecies.value);
+  if (doesAnimalExist) {
+    return;
+  }
 
   fetch("http://localhost:3000/animals/", {
     method: "POST",
@@ -115,18 +136,25 @@ addAnimal = () => {
 };
 
 //PUT update animal
-updateAnimal = () => {
-  speciesChange = document.getElementById("animalsList");
+updateAnimal = async () => {
+  previousSpecies = document.getElementById("animalsList");
+  speciesChange = document.getElementById("animalToUpdate");
   yearsChange = document.getElementById("yearsChange");
   infoChange = document.getElementById("infoChange");
 
+  const doesAnimalExist = await checkIfExists(speciesChange.value);
+  if (doesAnimalExist) {
+    return;
+  }
+
   const updatedAnimal = {
-    species: speciesChange.value,
+    previousSpecies: previousSpecies.value,
+    newSpecies: speciesChange.value,
     years: yearsChange.value,
     info: infoChange.value,
   };
 
-  fetch("http://localhost:3000/animals/" + updatedAnimal.species, {
+  fetch("http://localhost:3000/animals/" + updatedAnimal.previousSpecies, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -135,12 +163,14 @@ updateAnimal = () => {
   })
     .then((response) => {
       console.log(response.status);
+      speciesChange.value = "";
       yearsChange.value = "";
       infoChange.value = "";
     })
     .catch((error) => {
       console.error("There is an issue " + error);
     });
+  populationOfAnimalList();
 };
 
 //DELETE animal
