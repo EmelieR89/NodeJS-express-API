@@ -37,22 +37,6 @@ getAllAnimals = async () => {
   return result;
 };
 
-//Check if animal already exists
-checkIfExists = async (elementValue) => {
-  const animalList = await getAllAnimals();
-  let doesItExist = false;
-
-  animalList.map((x) => {
-    if (x.species === elementValue) {
-      doesItExist = true;
-    }
-  });
-  if (doesItExist) {
-    alert("Species already exist");
-  }
-  return doesItExist;
-};
-
 //GET specific by species
 getAnimalBySpecies = async (species) => {
   let result;
@@ -109,10 +93,10 @@ addAnimal = async () => {
     info: addedAnimalInfo.value,
   };
 
-  const doesAnimalExist = await checkIfExists(addedAnimalSpecies.value);
-  if (doesAnimalExist) {
-    return;
-  }
+  // const doesAnimalExist = await checkIfExists(addedAnimalSpecies.value);
+  // if (doesAnimalExist) {
+  //   return;
+  // }
 
   fetch("http://localhost:3000/animals/", {
     method: "POST",
@@ -122,6 +106,9 @@ addAnimal = async () => {
     body: JSON.stringify(newAnimal),
   })
     .then((response) => {
+      if (response.status == 400) {
+        alert("Species already exists");
+      }
       if (response.status === 201) {
         addedAnimalSpecies.value = "";
         addedAnimalYears.value = "";
@@ -142,19 +129,19 @@ updateAnimal = async () => {
   yearsChange = document.getElementById("yearsChange");
   infoChange = document.getElementById("infoChange");
 
-  const doesAnimalExist = await checkIfExists(speciesChange.value);
-  if (doesAnimalExist) {
-    return;
-  }
+  // const doesAnimalExist = await checkIfExists(speciesChange.value);
+  // if (doesAnimalExist) {
+  //   return;
+  // }
 
   const updatedAnimal = {
-    previousSpecies: previousSpecies.value,
+    // previousSpecies: previousSpecies.value,
     newSpecies: speciesChange.value,
     years: yearsChange.value,
     info: infoChange.value,
   };
 
-  fetch("http://localhost:3000/animals/" + updatedAnimal.previousSpecies, {
+  fetch("http://localhost:3000/animals/" + previousSpecies.value, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -163,6 +150,9 @@ updateAnimal = async () => {
   })
     .then((response) => {
       console.log(response.status);
+      if (response.status == 400) {
+        alert("Species already exists");
+      }
       speciesChange.value = "";
       yearsChange.value = "";
       infoChange.value = "";

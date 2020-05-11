@@ -2,6 +2,7 @@ const fs = require("fs");
 const rawObject = fs.readFileSync("./data.json");
 const animals = JSON.parse(rawObject);
 let idIndex = animals.length;
+
 writeToFile = () => {
   fs.writeFileSync("./data.json", JSON.stringify(animals), (error) =>
     console.log(error)
@@ -34,8 +35,8 @@ module.exports = {
     writeToFile();
   },
 
-  updateAnimal: (updatedAnimal) => {
-    let result = findAnimal(updatedAnimal.previousSpecies);
+  updateAnimal: (previousSpecies, updatedAnimal) => {
+    let result = findAnimal(previousSpecies);
     if (!result) {
       return result;
     } else {

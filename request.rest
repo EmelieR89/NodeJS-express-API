@@ -9,11 +9,25 @@ GET http://localhost:3000/animals/Katt
 POST http://localhost:3000/animals/
 Content-Type: application/json
 
+{
+    "id": 66,
+    "species": "ko",
+    "years": 20,
+    "info": "Bajsar"
+}
+
 
 ###
 
-PUT http://localhost:3000/animals/Katt
+PUT http://localhost:3000/animals/ko
 Content-Type: application/json
+
+{
+    "id": 67,
+    "newSpecies": "höna",
+    "years": 10,
+    "info": "Lägger ägg."
+}
 
 ###
 
